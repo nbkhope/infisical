@@ -9,7 +9,6 @@ export const UserSecretsSection = () => {
   console.log(a)
   return (
     <div>
-      <div>HELLO</div>
       <UserSecretsNew />
       <UserSecretsList />
     </div>
