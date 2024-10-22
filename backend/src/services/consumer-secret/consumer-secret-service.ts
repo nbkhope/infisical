@@ -1,7 +1,7 @@
 import { TConsumerSecretDALFactory } from "./consumer-secrets-dal";
 
 type TConsumerSecretServiceFactoryDep = {
-  consumerSecretsDAL: TConsumerSecretDALFactory;
+  consumerSecretDAL: TConsumerSecretDALFactory;
 };
 
 export type TConsumerSecretServiceFactory = ReturnType<typeof consumerSecretServiceFactory>;
@@ -35,14 +35,17 @@ const credentials = [
 
 export const consumerSecretServiceFactory = ({ consumerSecretDAL }: TConsumerSecretServiceFactoryDep) => {
   return {
-    create() {
-      return credentials[0];
+    async create(consumerSecret) {
+      return consumerSecretDAL.create(consumerSecret);
+    },
+    async delete(consumerSecretId) {
+      return consumerSecretDAL.deleteById(consumerSecretId);
     },
     get() {
       return credentials[0];
     },
-    list() {
-      return credentials;
+    async list() {
+      return consumerSecretDAL.find({});
     },
     update() {
       return credentials[0];
