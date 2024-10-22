@@ -1,12 +1,27 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@app/config/request";
+import { queryKeys } from "./queries";
 
 export const useCreateConsumerSecret = () => {
-  // return;
   return useMutation({
-    mutationFn: async () => {
-      const { data } = await apiRequest.get(`/api/v3/consumer-secrets`);
+    mutationFn: async (variables) => {
+      const { data } = await apiRequest.post(`/api/v3/consumer-secrets`, variables);
       return data;
     },
   });
+}
+
+export const useDeleteConsumerSecret = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (consumerSecretId) => {
+      const { data } = await apiRequest.delete(`/api/v3/consumer-secrets/${consumerSecretId}`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.consumerSecretsGetAll
+      })
+    },
+  })
 }
