@@ -13,8 +13,10 @@ export async function up(knex: Knex): Promise<void> {
     t.string("username");
     t.string("password");
     t.timestamps(true, true, true);
-    // todo: tie to user
-    // todo: tie to org
+    t.uuid("userId").notNullable();
+    t.foreign("userId").references("id").inTable(TableName.Users).onDelete("CASCADE");
+    t.uuid("orgId").notNullable();
+    t.foreign("orgId").references("id").inTable(TableName.Organization).onDelete("CASCADE");
   });
 }
 

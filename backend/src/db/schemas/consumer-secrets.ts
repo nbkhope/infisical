@@ -15,7 +15,9 @@ export const ConsumerSecretsSchema = z.object({
   username: z.string().nullable().optional(),
   password: z.string().nullable().optional(),
   createdAt: z.date(),
-  updatedAt: z.date()
+  updatedAt: z.date(),
+  userId: z.string().uuid().nullable().optional(),
+  orgId: z.string().uuid().nullable().optional()
 });
 
 export type TConsumerSecrets = z.infer<typeof ConsumerSecretsSchema>;
