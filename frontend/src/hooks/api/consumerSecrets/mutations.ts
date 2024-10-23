@@ -25,3 +25,19 @@ export const useDeleteConsumerSecret = () => {
     },
   })
 }
+
+export const useUpdateConsumerSecret = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (variables) => {
+      const { data } = await apiRequest.put(`/api/v3/consumer-secrets/${variables.id}`, variables);
+      return data;
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.consumerSecretsGetOne(variables.id)
+      })
+    }
+  });
+}
