@@ -13,6 +13,8 @@ export async function up(knex: Knex): Promise<void> {
     t.string("username");
     t.string("password");
     t.timestamps(true, true, true);
+    // todo: tie to user
+    // todo: tie to org
   });
 }
 
