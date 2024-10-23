@@ -23,6 +23,7 @@ export const useGetConsumerSecret = (consumerSecretId) => {
     queryFn: async () => {
       const { data } = await apiRequest.get(`/api/v3/consumer-secrets/${consumerSecretId}`);
       return data;
-    }
+    },
+    enabled: !!consumerSecretId,
   });
 }
