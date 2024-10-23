@@ -30,15 +30,13 @@ export const UserSecretsList = (props) => {
               <Th>ID</Th>
               <Th>Name</Th>
               <Th>Username</Th>
-              <Th>Password</Th>
-              <Th>Created At</Th>
-              <Th>Updated At</Th>
               <Th aria-label="Actions"></Th>
             </Tr>
           </THead>
           <TBody>
             {data.map((userSecret) => (
               <Tr key={userSecret.id}>
+                {/* TODO: allow multiple selection for bulk actions. usually a checkbox */}
                 <Td>
                   {/* TODO make link and make url change to /user-secrets/:userSecretId */}
                   <span onClick={() => {
@@ -46,11 +44,9 @@ export const UserSecretsList = (props) => {
                     props.onItemClick(userSecret.id);
                   }}>{userSecret.id}</span>
                 </Td>
+                {/* TODO: some icon usually the site favicon */}
                 <Td>{userSecret.name}</Td>
                 <Td>{userSecret.username}</Td>
-                <Td>{userSecret.password}</Td>
-                <Td>{`${format(new Date(userSecret.createdAt), "yyyy-MM-dd - HH:mm a")}`}</Td>
-                <Td>{`${format(new Date(userSecret.updatedAt), "yyyy-MM-dd - HH:mm a")}`}</Td>
                 <Td>
                 <IconButton
                   onClick={(event) => {
