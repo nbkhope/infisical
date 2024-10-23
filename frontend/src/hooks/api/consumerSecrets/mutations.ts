@@ -3,11 +3,17 @@ import { apiRequest } from "@app/config/request";
 import { queryKeys } from "./queries";
 
 export const useCreateConsumerSecret = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (variables) => {
       const { data } = await apiRequest.post(`/api/v3/consumer-secrets`, variables);
       return data;
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.consumerSecretsGetAll
+      });
+    }
   });
 }
 
