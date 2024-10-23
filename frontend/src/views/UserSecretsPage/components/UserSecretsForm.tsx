@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
 
 import { Button, FormControl, Input } from "@app/components/v2";
-// import { useCreateConsumerSecret } from "@app/hooks/api/consumerSecrets";
 
 export const UserSecretsForm = (props) => {
-  const { handleSubmit, register } = useForm();
-
-  // const { mutateAsync: createConsumerSecret } = useCreateConsumerSecret();
+  const { handleSubmit, register } = useForm({
+    defaultValues: props.initialValues
+  });
 
   return (
     <form
@@ -22,11 +21,11 @@ export const UserSecretsForm = (props) => {
       <FormControl label="Password">
         <Input {...register('password')} type="password" />
       </FormControl>
-      <div class="mt-7">
+      <div className="mt-7">
         <Button type="submit" className="mr-4">Create</Button>
         <Button
           // key="layout-cancel-create-project"
-          onClick={props.onClose}
+          onClick={props.onCancel}
           variant="plain"
           colorSchema="secondary"
         >

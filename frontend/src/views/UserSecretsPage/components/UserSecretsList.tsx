@@ -16,7 +16,7 @@ import {
   Tr
 } from "@app/components/v2";
 
-export const UserSecretsList = () => {
+export const UserSecretsList = (props) => {
   const { data } = useGetConsumerSecrets();
 
   const { mutateAsync: deleteConsumerSecret } = useDeleteConsumerSecret();
@@ -39,7 +39,13 @@ export const UserSecretsList = () => {
           <TBody>
             {data.map((userSecret) => (
               <Tr key={userSecret.id}>
-                <Td>{userSecret.id}</Td>
+                <Td>
+                  {/* TODO make link and make url change to /user-secrets/:userSecretId */}
+                  <span onClick={() => {
+                    console.log('click', userSecret.id);
+                    props.onItemClick(userSecret.id);
+                  }}>{userSecret.id}</span>
+                </Td>
                 <Td>{userSecret.name}</Td>
                 <Td>{userSecret.username}</Td>
                 <Td>{userSecret.password}</Td>

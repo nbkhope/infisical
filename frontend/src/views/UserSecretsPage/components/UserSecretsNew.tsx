@@ -16,8 +16,6 @@ export const UserSecretsNew = () => {
   const { handlePopUpClose, handlePopUpOpen, handlePopUpToggle, popUp } = usePopUp([POPUP_USER_SECRET_CREATE]);
 
   function onSubmit(formFields) {
-    console.log({formFields})
-
     createConsumerSecret(formFields);
   }
 
@@ -31,7 +29,7 @@ export const UserSecretsNew = () => {
       </div>
       <Modal isOpen={popUp[POPUP_USER_SECRET_CREATE].isOpen} onOpenChange={(isOpen) => handlePopUpToggle(POPUP_USER_SECRET_CREATE, isOpen)}>
         <ModalContent title="Title" subTitle="Subtitle">
-          <UserSecretsForm onClose={() => handlePopUpClose(POPUP_USER_SECRET_CREATE)} onSubmit={onSubmit} />
+          <UserSecretsForm onCancel={() => handlePopUpClose(POPUP_USER_SECRET_CREATE)} onSubmit={onSubmit} />
         </ModalContent>
       </Modal>
     </>
