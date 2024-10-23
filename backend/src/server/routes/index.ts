@@ -97,6 +97,8 @@ import { certificateTemplateDALFactory } from "@app/services/certificate-templat
 import { certificateTemplateEstConfigDALFactory } from "@app/services/certificate-template/certificate-template-est-config-dal";
 import { certificateTemplateServiceFactory } from "@app/services/certificate-template/certificate-template-service";
 import { cmekServiceFactory } from "@app/services/cmek/cmek-service";
+import { consumerSecretDALFactory } from "@app/services/consumer-secret/consumer-secret-dal";
+import { consumerSecretServiceFactory } from "@app/services/consumer-secret/consumer-secret-service";
 import { externalGroupOrgRoleMappingDALFactory } from "@app/services/external-group-org-role-mapping/external-group-org-role-mapping-dal";
 import { externalGroupOrgRoleMappingServiceFactory } from "@app/services/external-group-org-role-mapping/external-group-org-role-mapping-service";
 import { externalMigrationQueueFactory } from "@app/services/external-migration/external-migration-queue";
@@ -240,6 +242,8 @@ export const registerRoutes = async (
   const superAdminDAL = superAdminDALFactory(db);
   const rateLimitDAL = rateLimitDALFactory(db);
   const apiKeyDAL = apiKeyDALFactory(db);
+
+  const consumerSecretDAL = consumerSecretDALFactory(db);
 
   const projectDAL = projectDALFactory(db);
   const projectMembershipDAL = projectMembershipDALFactory(db);
@@ -713,6 +717,10 @@ export const registerRoutes = async (
     projectDAL,
     kmsService,
     licenseService
+  });
+
+  const consumerSecretService = consumerSecretServiceFactory({
+    consumerSecretDAL,
   });
 
   const pkiAlertService = pkiAlertServiceFactory({
@@ -1258,6 +1266,7 @@ export const registerRoutes = async (
 
   // inject all services
   server.decorate<FastifyZodProvider["services"]>("services", {
+    consumerSecret: consumerSecretService,
     login: loginService,
     password: passwordService,
     signup: signupService,

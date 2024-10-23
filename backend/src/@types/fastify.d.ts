@@ -112,6 +112,7 @@ declare module "fastify" {
 
   interface FastifyInstance {
     services: {
+      consumerSecret: TConsumerSecretServiceFactory;
       login: TAuthLoginFactory;
       password: TAuthPasswordFactory;
       signup: TAuthSignupFactory;

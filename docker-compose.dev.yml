@@ -110,6 +110,7 @@ services:
     environment:
       - NEXT_PUBLIC_ENV=development
       - INFISICAL_TELEMETRY_ENABLED=false
+      - WATCHPACK_POLLING=true
 
   pgadmin:
     image: dpage/pgadmin4
