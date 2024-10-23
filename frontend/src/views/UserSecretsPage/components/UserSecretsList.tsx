@@ -1,4 +1,4 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faKey, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import {
@@ -6,6 +6,7 @@ import {
   useGetConsumerSecrets
 } from "@app/hooks/api/consumerSecrets"
 import {
+  EmptyState,
   IconButton,
   Table,
   TableContainer,
@@ -17,7 +18,7 @@ import {
 } from "@app/components/v2";
 
 export const UserSecretsList = (props) => {
-  const { data } = useGetConsumerSecrets();
+  const { data, isLoading } = useGetConsumerSecrets();
 
   const { mutateAsync: deleteConsumerSecret } = useDeleteConsumerSecret();
 
@@ -69,6 +70,9 @@ export const UserSecretsList = (props) => {
             ))}
           </TBody>
         </Table>
+        {!isLoading && data.length === 0 && (
+          <EmptyState title="No user secrets yet" icon={faKey} />
+        )}
       </TableContainer> 
     </div>
   )
