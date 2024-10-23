@@ -35,36 +35,36 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
     },
   })
 
-  // server.route({
-  //   method: "GET",
-  //   url: "/:consumerSecretId",
-  //   config: {
-  //     rateLimit: readLimit,
-  //   },
-  //   schema: {
-  //     description: "List consumer secrets",
-  //     security: [
-  //       {
-  //         bearerAuth: []
-  //       }
-  //     ],
-  //     response: {
-  //       200: ConsumerSecretsSchema
-  //     },
-  //     params: {
-  //       consumerSecretId: z.string()
-  //     }
-  //   },
-  //   onRequest: verifyAuth([
-  //     AuthMode.JWT,
-  //     AuthMode.API_KEY,
-  //     AuthMode.SERVICE_TOKEN,
-  //     AuthMode.IDENTITY_ACCESS_TOKEN
-  //   ]),
-  //   handler: async (req) => {
-  //     return server.services.consumerSecret.get();
-  //   },
-  // })
+  server.route({
+    method: "GET",
+    url: "/:consumerSecretId",
+    config: {
+      rateLimit: readLimit,
+    },
+    schema: {
+      description: "Get consumer secret",
+      security: [
+        {
+          bearerAuth: []
+        }
+      ],
+      response: {
+        200: ConsumerSecretsSchema
+      },
+      params: z.object({
+        consumerSecretId: z.string()
+      })
+    },
+    onRequest: verifyAuth([
+      AuthMode.JWT,
+      AuthMode.API_KEY,
+      AuthMode.SERVICE_TOKEN,
+      AuthMode.IDENTITY_ACCESS_TOKEN
+    ]),
+    handler: async (req) => {
+      return server.services.consumerSecret.get(req.params.consumerSecretId);
+    },
+  });
 
   server.route({
     method: "POST",
@@ -99,33 +99,37 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
     },
   });
 
-  // server.route({
-  //   method: "PUT",
-  //   url: "/:consumerSecretId",
-  //   config: {
-  //     rateLimit: readLimit,
-  //   },
-  //   schema: {
-  //     description: "Update consumer secrets",
-  //     security: [
-  //       {
-  //         bearerAuth: []
-  //       }
-  //     ],
-  //     response: {
-  //       200: ConsumerSecretsSchema
-  //     }
-  //   },
-  //   onRequest: verifyAuth([
-  //     AuthMode.JWT,
-  //     AuthMode.API_KEY,
-  //     AuthMode.SERVICE_TOKEN,
-  //     AuthMode.IDENTITY_ACCESS_TOKEN
-  //   ]),
-  //   handler: async (req) => {
-  //     return server.services.consumerSecret.update();
-  //   },
-  // });
+  server.route({
+    method: "PUT",
+    url: "/:consumerSecretId",
+    config: {
+      rateLimit: readLimit,
+    },
+    schema: {
+      description: "Update consumer secrets",
+      body: ConsumerSecretsSchema.omit({
+        createdAt: true,
+        updatedAt: true,
+      }),
+      security: [
+        {
+          bearerAuth: []
+        }
+      ],
+      response: {
+        200: ConsumerSecretsSchema
+      }
+    },
+    onRequest: verifyAuth([
+      AuthMode.JWT,
+      AuthMode.API_KEY,
+      AuthMode.SERVICE_TOKEN,
+      AuthMode.IDENTITY_ACCESS_TOKEN
+    ]),
+    handler: async (req) => {
+      return server.services.consumerSecret.update(req.body);
+    },
+  });
 
   server.route({
     method: "DELETE",

@@ -1,4 +1,12 @@
 import { TConsumerSecretDALFactory } from "./consumer-secrets-dal";
+// import {
+//   decryptSymmetric,
+//   encryptSymmetric,
+//   generateAsymmetricKeyPair,
+//   generateSymmetricKey,
+//   infisicalSymmetricDecrypt,
+//   infisicalSymmetricEncypt
+// } from "@app/lib/crypto/encryption";
 
 type TConsumerSecretServiceFactoryDep = {
   consumerSecretDAL: TConsumerSecretDALFactory;
@@ -36,19 +44,20 @@ const credentials = [
 export const consumerSecretServiceFactory = ({ consumerSecretDAL }: TConsumerSecretServiceFactoryDep) => {
   return {
     async create(consumerSecret) {
+      // TODO: encryption
       return consumerSecretDAL.create(consumerSecret);
     },
     async delete(consumerSecretId) {
       return consumerSecretDAL.deleteById(consumerSecretId);
     },
-    get() {
-      return credentials[0];
+    get(consumerSecretId) {
+      return consumerSecretDAL.findById(consumerSecretId)
     },
     async list() {
       return consumerSecretDAL.find({});
     },
-    update() {
-      return credentials[0];
+    update(consumerSecret) {
+      return consumerSecretDAL.updateById(consumerSecret.id, consumerSecret);
     }
   };
 };
