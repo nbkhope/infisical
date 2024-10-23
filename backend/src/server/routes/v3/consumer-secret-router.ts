@@ -31,6 +31,9 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
       AuthMode.IDENTITY_ACCESS_TOKEN
     ]),
     handler: async (req) => {
+      // TODO: list given the orgId and userId.
+      // You cannot rely on the values given by the frontend as they can easily be tampered with. Only server side can determine the legit value.
+
       return server.services.consumerSecret.list();
     },
   })
@@ -62,6 +65,9 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
       AuthMode.IDENTITY_ACCESS_TOKEN
     ]),
     handler: async (req) => {
+      // TODO: list given the orgId and userId.
+      // You cannot rely on the values given by the frontend as they can easily be tampered with. Only server side can determine the legit value.
+
       return server.services.consumerSecret.get(req.params.consumerSecretId);
     },
   });
@@ -95,6 +101,9 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
       AuthMode.IDENTITY_ACCESS_TOKEN
     ]),
     handler: async (req) => {
+      // TODO: check given the orgId and userId.
+      // You cannot rely on the values given by the frontend as they can easily be tampered with. Only server side can determine the legit value.
+
       return server.services.consumerSecret.create(req.body);
     },
   });
@@ -127,6 +136,9 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
       AuthMode.IDENTITY_ACCESS_TOKEN
     ]),
     handler: async (req) => {
+      // TODO: check given the orgId and userId.
+      // You cannot rely on the values given by the frontend as they can easily be tampered with. Only server side can determine the legit value.
+
       return server.services.consumerSecret.update(req.body);
     },
   });
@@ -158,6 +170,9 @@ export const registerConsumerSecretRouter = async (server: FastifyZodProvider) =
       AuthMode.IDENTITY_ACCESS_TOKEN
     ]),
     handler: async (req) => {
+      // TODO: check given the orgId and userId.
+      // You cannot rely on the values given by the frontend as they can easily be tampered with. Only server side can determine the legit value.
+
       const consumerSecret = await server.services.consumerSecret.get(req.params.consumerSecretId);
       if (!consumerSecret) {
         throw new NotFoundError({
