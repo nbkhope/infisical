@@ -17,6 +17,7 @@ export const UserSecretsNew = () => {
 
   function onSubmit(formFields) {
     createConsumerSecret(formFields);
+    handlePopUpClose(POPUP_USER_SECRET_CREATE);
   }
 
   return (
@@ -28,7 +29,7 @@ export const UserSecretsNew = () => {
         <Button leftIcon={<FontAwesomeIcon icon={faPlus} />}onClick={() => handlePopUpOpen(POPUP_USER_SECRET_CREATE)}>Create User Secret</Button>
       </div>
       <Modal isOpen={popUp[POPUP_USER_SECRET_CREATE].isOpen} onOpenChange={(isOpen) => handlePopUpToggle(POPUP_USER_SECRET_CREATE, isOpen)}>
-        <ModalContent title="Title" subTitle="Subtitle">
+        <ModalContent title="Create User Secret" subTitle="Store website login information">
           <UserSecretsForm onCancel={() => handlePopUpClose(POPUP_USER_SECRET_CREATE)} onSubmit={onSubmit} />
         </ModalContent>
       </Modal>
