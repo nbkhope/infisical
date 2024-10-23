@@ -7,17 +7,23 @@ import {
   ModalContent
 } from "@app/components/v2";
 import { useEffect } from "react";
+// import { usePopUpAction } from "@app/views/SecretMainPage/SecretMainPage.store";
 
+// todo: move to https://github.com/Infisical/infisical/blob/d94b4b2a3c23f5b40e58c2cdb267dc22867883b0/frontend/src/views/SecretMainPage/SecretMainPage.store.tsx#L35 ?
 const POPUP_USER_SECRET_EDIT = "editUserSecret";
 
 export const UserSecretsEdit = (props) => {
   const { mutateAsync: updateConsumerSecret } = useUpdateConsumerSecret();
   const { handlePopUpClose, handlePopUpOpen, handlePopUpToggle, popUp } = usePopUp([POPUP_USER_SECRET_EDIT]);
+  // const { closePopUp } = usePopUpAction();
 
   const { data } = useGetConsumerSecret(props.selectedConsumerSecretId);
 
-  function onSubmit(formFields) {
-    updateConsumerSecret(formFields);
+  async function onSubmit(formFields) {
+    await updateConsumerSecret(formFields);
+    handlePopUpClose(POPUP_USER_SECRET_EDIT);
+    props.onCancel();
+    // closePopUp(POPUP_USER_SECRET_EDIT);
   }
 
   useEffect(() => {

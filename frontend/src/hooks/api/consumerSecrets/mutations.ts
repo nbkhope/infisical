@@ -36,7 +36,7 @@ export const useUpdateConsumerSecret = () => {
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.consumerSecretsGetOne(variables.id)
+        queryKey: queryKeys.consumerSecretsGetAll
       })
     }
   });
