@@ -43,7 +43,7 @@ export const UserSecretsEdit = (props) => {
           }
         }}
       >
-        <ModalContent title="Title" subTitle="Subtitle">
+        <ModalContent title="Edit User Secret" subTitle="Changes cannot be reverted after submission">
           <UserSecretsForm
             onCancel={() => {
               handlePopUpClose(POPUP_USER_SECRET_EDIT);
